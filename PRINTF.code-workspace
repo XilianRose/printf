@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../LIBFT/libft2022"
+		}
+	],
+	"settings": {}
+}
