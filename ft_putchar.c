@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   libftprintf.h                                      :+:    :+:            */
+/*   ft_putchar.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2022/10/28 11:34:06 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/10/31 14:07:28 by mstegema      ########   odam.nl         */
+/*   Created: 2022/10/31 11:34:08 by mstegema      #+#    #+#                 */
+/*   Updated: 2022/10/31 11:36:08 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#include "libftprintf.h"
 
-# include <unistd.h>
-# include <stdlib.h>
-# include <stdarg.h>
-
-int		ft_printf(const char *c, ...);
-void	ft_putchar(char c);
-void	ft_putstr(char *s);
-
-#endif
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
