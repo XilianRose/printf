@@ -7,5 +7,9 @@
 			"path": "../LIBFT/libft2022"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"stdio.h": "c"
+		}
+	}
 }
