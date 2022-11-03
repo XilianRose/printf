@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/02 14:52:34 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/03 12:41:15 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	ft_print_ph(const char *placeholder, int i, va_list ap)
 {
 	char	c;
 	char	*str;
-	// void	*ptr;
+	int		x;
 
 	if (placeholder[i] == 'c')
 	{
@@ -30,11 +30,14 @@ static void	ft_print_ph(const char *placeholder, int i, va_list ap)
 		str = va_arg(ap, char *);
 		write(1, str, strlen(str));
 	}
-	// else if (placeholder[i] == 'p')
-	// {
-	// 	ptr = va_arg(ap, void *);
-	// 	write(1, str, strlen(str));
-	// }
+	else if (placeholder[i] == 'x' || placeholder[i] == 'X')
+	{
+		x = va_arg(ap, int);
+		if (placeholder[i] == 'x')
+			ft_print_xlo(x);
+		if (placeholder[i] == 'X')
+			ft_print_xup(x);
+	}
 	return ;
 }
 
@@ -74,16 +77,18 @@ int	ft_printf(const char *c, ...)
 int	main(void)
 {
 	char	c;
-	char	*ptr = NULL;
+	// char	*ptr = NULL;
 
 	c = '5';
 	ft_printf("ft: this should print %%\n");
-	printf("og: this should print %%\n");
+	printf("og: this should print %%\n\n");
 	ft_printf("ft: this is string 1: %s & this is string 2: %s\n", "abc", "123");
-	printf("og: this is string 1: %s & this is string 2: %s\n", "abc", "123");
-	ft_printf("ft :this is char 1: %c & this is char 2: %c\n", 'c', c);
-	printf("og :this is char 1: %c & this is char 2: %c\n", 'c', c);
+	printf("og: this is string 1: %s & this is string 2: %s\n\n", "abc", "123");
+	ft_printf("ft: this is char 1: %c & this is char 2: %c\n", 'c', c);
+	printf("og: this is char 1: %c & this is char 2: %c\n\n", 'c', c);
+	ft_printf("ft: this is hex 1: %x & this is hex 2: %X\n", 635635, 635635);
+	printf("og: this is hex 1: %x & this is hex 2: %X\n\n", 635635, 635635);
 	// ft_printf(" ft: this is void ptr 1: %p & this is void ptr 2: %c\n", 'c', c);
-	printf("og: this is void ptr 1: %p & this is void ptr 2: %p\n", ptr, &c);
+	// printf("og: this is void ptr 1: %p & this is void ptr 2: %p\n", ptr, &c);
 	return (0);
 }
