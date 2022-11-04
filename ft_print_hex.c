@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/03 12:34:14 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/04 15:47:23 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 // #include <stdio.h>
 // #include <string.h>
 
-void	ft_print_xup(int num)
+void	ft_print_x(int num, char *x)
 {
 	char	c;
 	int		rem;
@@ -29,40 +29,42 @@ void	ft_print_xup(int num)
 	}
 	else
 	{
-		ft_print_xup(num / 16);
+		ft_print_x(num / 16, x);
 		rem = num % 16;
 		if (rem < 10)
 			c = '0' + rem;
-		else
+		else if (x == 'X')
 			c = '7' + rem;
-		ft_putchar(c);
-	}
-}
-
-void	ft_print_xlo(int num)
-{
-	char	c;
-	int		rem;
-
-	if (num < 16)
-	{
-		if (num < 10)
-			c = '0' + num;
-		else
-			c = 'W' + num;
-		ft_putchar(c);
-	}
-	else
-	{
-		ft_print_xlo(num / 16);
-		rem = num % 16;
-		if (rem < 10)
-			c = '0' + rem;
 		else
 			c = 'W' + rem;
 		ft_putchar(c);
 	}
 }
+
+// void	ft_print_xlo(int num)
+// {
+// 	char	c;
+// 	int		rem;
+
+// 	if (num < 16)
+// 	{
+// 		if (num < 10)
+// 			c = '0' + num;
+// 		else
+// 			c = 'W' + num;
+// 		ft_putchar(c);
+// 	}
+// 	else
+// 	{
+// 		ft_print_xlo(num / 16);
+// 		rem = num % 16;
+// 		if (rem < 10)
+// 			c = '0' + rem;
+// 		else
+// 			c = 'W' + rem;
+// 		ft_putchar(c);
+// 	}
+// }
 
 // int	main(void)
 // {

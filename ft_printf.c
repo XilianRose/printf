@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/03 12:41:15 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/04 15:47:05 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ static void	ft_print_ph(const char *placeholder, int i, va_list ap)
 	else if (placeholder[i] == 'x' || placeholder[i] == 'X')
 	{
 		x = va_arg(ap, int);
-		if (placeholder[i] == 'x')
-			ft_print_xlo(x);
-		if (placeholder[i] == 'X')
-			ft_print_xup(x);
+		ft_print_x(x, placeholder[i]);
 	}
 	return ;
 }
