@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:34:06 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/04 15:42:49 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:04:57 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@
 # include <stdarg.h>
 
 int		ft_printf(const char *c, ...);
-void	ft_putchar(char c);
+void	ft_print_hex(unsigned long num, char x);
+
+size_t	ft_strlen(const char *s);
 void	ft_putstr(char *s);
-void	ft_print_x(int num, char x);
+void	ft_putchar(char c);
+void	ft_putnbr(int n);
 
 #endif

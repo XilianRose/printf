@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/04 15:47:05 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/09 15:17:48 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,33 @@
 
 static void	ft_print_ph(const char *placeholder, int i, va_list ap)
 {
-	char	c;
-	char	*str;
-	int		x;
+	char			c;
+	char			*str;
+	unsigned long	x;
+	int				n;
 
 	if (placeholder[i] == 'c')
 	{
 		c = va_arg(ap, int);
-		write (1, &c, 1);
+		return (ft_putchar(c));
 	}
 	else if (placeholder[i] == 's')
 	{
 		str = va_arg(ap, char *);
-		write(1, str, strlen(str));
+		return (ft_putstr(str));
 	}
-	else if (placeholder[i] == 'x' || placeholder[i] == 'X')
+	else if (placeholder[i] == 'x' || placeholder[i] == 'X'
+		|| placeholder[i] == 'p')
 	{
-		x = va_arg(ap, int);
-		ft_print_x(x, placeholder[i]);
+		x = va_arg(ap, unsigned long);
+		if (placeholder[i] == 'p')
+			ft_putstr("0x");
+		return (ft_print_hex(x, placeholder[i]));
+	}
+	else if (placeholder[i] == 'd' || placeholder[i] == 'i')
+	{
+		n = va_arg(ap, int);
+		return (ft_putnbr(n));
 	}
 	return ;
 }
@@ -74,7 +83,7 @@ int	ft_printf(const char *c, ...)
 int	main(void)
 {
 	char	c;
-	// char	*ptr = NULL;
+	void	*ptr = NULL;
 
 	c = '5';
 	ft_printf("ft: this should print %%\n");
@@ -85,7 +94,9 @@ int	main(void)
 	printf("og: this is char 1: %c & this is char 2: %c\n\n", 'c', c);
 	ft_printf("ft: this is hex 1: %x & this is hex 2: %X\n", 635635, 635635);
 	printf("og: this is hex 1: %x & this is hex 2: %X\n\n", 635635, 635635);
-	// ft_printf(" ft: this is void ptr 1: %p & this is void ptr 2: %c\n", 'c', c);
-	// printf("og: this is void ptr 1: %p & this is void ptr 2: %p\n", ptr, &c);
+	ft_printf("ft: this is void ptr 1: %p & this is void ptr 2: %p\n", ptr, &c);
+	printf("og: this is void ptr 1: %p & this is void ptr 2: %p\n\n", ptr, &c);
+	printf("og: this is decimal: %d & this is integer: %i\n", 012, 012);
+	ft_printf("ft: this is decimal: %d & this is integer: %i\n\n", 012, 012);
 	return (0);
 }
