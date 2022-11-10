@@ -6,11 +6,11 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 12:08:50 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:36:12 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 // #include <stdio.h>
 
 // This is the function that converts decimal numbers to hex.
@@ -20,7 +20,10 @@
 // the corresponding char. If not, it recursively calls on the function with
 // "num / 16" and "num % 16" so it's remainder get's printed every call.
 
-void	ft_print_hex(unsigned long num, char x)
+// It also checks which placeholder it is. If it's %X it'll print the hex in
+// uppercase. Else (%x and %p) it'll print it in lowercase.
+
+int	ft_print_hex(unsigned long num, char x, int res)
 {
 	char	c;
 
@@ -32,13 +35,14 @@ void	ft_print_hex(unsigned long num, char x)
 			c = '7' + num;
 		else
 			c = 'W' + num;
-		ft_putchar(c);
+		res = ft_putchar(c) + res;
 	}
 	else
 	{
-		ft_print_hex(num / 16, x);
-		ft_print_hex(num % 16, x);
+		ft_print_hex(num / 16, x, res);
+		ft_print_hex(num % 16, x, res);
 	}
+	return (res);
 }
 
 // This is what i used to check if the conversion went right.

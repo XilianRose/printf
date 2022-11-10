@@ -6,11 +6,11 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 12:07:08 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:44:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 
 // This function prints the placeholders (ph).
@@ -19,27 +19,32 @@
 // different types are added to the va_list. They are then printed using general
 // ft_put~ functions or with the ft_print_hex function in case of %x, %X or %p.
 
-static void	ft_print_ph(const char *ph, int i, va_list ap)
+// It prints the "0x" part of the pointer address in this function because the
+// functions used to print hexidecimals is recursive.
+
+static int	ft_print_ph(const char *ph, int i, va_list ap, int res)
 {
 	char			c;
 	char			*str;
-	int				n;
-	unsigned long	hex;
+	int				nbr;
+	unsigned long	x;
+	unsigned int	u;
 
 	if (ph[i] == 'c')
-		return (c = va_arg(ap, int), ft_putchar(c));
+		return (c = va_arg(ap, int), (ft_putchar(c) + res));
 	else if (ph[i] == 's')
-		return (str = va_arg(ap, char *), ft_putstr(str));
+		return (str = va_arg(ap, char *), (ft_putstr(str) + res));
 	else if (ph[i] == 'd' || ph[i] == 'i')
-		return (n = va_arg(ap, int), ft_putnbr(n));
+		return (nbr = va_arg(ap, int), (ft_putnbr(nbr) + res));
+	else if (ph[i] == 'u')
+		return (u = va_arg(ap, unsigned int), (ft_putnbr(u) + res));
 	else if (ph[i] == 'x' || ph[i] == 'X' || ph[i] == 'p')
 	{
-		hex = va_arg(ap, unsigned long);
 		if (ph[i] == 'p')
-			ft_putstr("0x");
-		return (ft_print_hex(hex, ph[i]));
+			res = ft_putstr("0x") + res;
+		return (x = va_arg(ap, unsigned long), ft_print_hex(x, ph[i], res));
 	}
-	return ;
+	return (res);
 }
 
 // This is the function that prints every printable character.
@@ -48,7 +53,7 @@ static void	ft_print_ph(const char *ph, int i, va_list ap)
 // an '%', then it checks if it should be printed or if it's a placeholder.
 // If it's an placeholder it goes into ft_print_ph function.
 
-static void	ft_print_cs(const char *c, va_list ap)
+static int	ft_print_cs(const char *c, va_list ap, int res)
 {
 	int	i;
 
@@ -59,34 +64,39 @@ static void	ft_print_cs(const char *c, va_list ap)
 		{
 			write(1, c + i, 1);
 			i++;
+			res++;
 		}
 		else if (c[i] == '%' && c[i + 1] == '%')
 		{
 			write(1, "%", 1);
 			i = i + 2;
+			res++;
 		}
 		else if (c[i] == '%' && c[i + 1] != '%')
 		{
-			ft_print_ph(c, i + 1, ap);
+			res = ft_print_ph(c, i + 1, ap, res);
 			i = i + 2;
 		}
 	}
-	return ;
+	return (res);
 }
 
 // This is the general printf function. It takes a character string and an
 // undefined number of arguments using variable argument list functions.
 //
-// The function then calls on ft_print_cs with the string and va_list.
+// int res is declared here and given to ft_print_cs with the string and
+// va_list. It'll count the printed characters.
 
 int	ft_printf(const char *c, ...)
 {
 	va_list	ap;
+	int		res;
 
+	res = 0;
 	va_start(ap, c);
-	ft_print_cs(c, ap);
+	res = ft_print_cs(c, ap, res);
 	va_end(ap);
-	return (0);
+	return (res);
 }
 
 // Here i compare the output of the original function (og) to my function (ft)
@@ -94,20 +104,27 @@ int	ft_printf(const char *c, ...)
 int	main(void)
 {
 	char	c;
-	void	*ptr = NULL;
+	void	*ptr;
+	int		res_ft;
+	int		res_og;
 
 	c = '5';
-	ft_printf("ft: this should print %%\n");
-	printf("og: this should print %%\n\n");
-	ft_printf("ft: this is string 1: %s & this is string 2: %s\n", "abc", "123");
-	printf("og: this is string 1: %s & this is string 2: %s\n\n", "abc", "123");
-	ft_printf("ft: this is char 1: %c & this is char 2: %c\n", 'c', c);
-	printf("og: this is char 1: %c & this is char 2: %c\n\n", 'c', c);
-	ft_printf("ft: this is hex 1: %x & this is HEX 2: %X\n", 635635, 635635);
-	printf("og: this is hex 1: %x & this is HEX 2: %X\n\n", 635635, 635635);
-	ft_printf("ft: this is void ptr 1: %p & this is void ptr 2: %p\n", ptr, &c);
-	printf("og: this is void ptr 1: %p & this is void ptr 2: %p\n\n", ptr, &c);
-	printf("og: this is decimal: %d & this is integer: %i\n", 012, 012);
-	ft_printf("ft: this is decimal: %d & this is integer: %i\n\n", 012, 012);
+	ptr = NULL;
+	res_ft = ft_printf("ft: this should print %%\n");
+	res_og = printf("og: this should print %%\n\n");
+	res_ft = ft_printf("ft: this is a string: %s\n", "abc");
+	res_og = printf("og: this is a string: %s\n\n", "abc");
+	res_ft = ft_printf("ft: this is char 1: %c & this is char 2: %c\n", 'c', c);
+	res_og = printf("og: this is char 1: %c & this is char 2: %c\n\n", 'c', c);
+	res_ft = ft_printf("ft: this is hex: %x\n", 635635);
+	res_og = printf("og: this is hex: %x\n\n", 635635);
+	res_ft = ft_printf("ft: this is HEX: %X\n", 635635);
+	res_og = printf("og: this is HEX: %X\n\n", 635635);
+	res_ft = ft_printf("ft: this is void ptr: %p\n", &c);
+	res_og = printf("og: this is void ptr: %p\n\n", &c);
+	res_ft = ft_printf("ft: this is decimal: %d & this is integer: %i\n\n", 012, 012);
+	res_og = printf("og: this is decimal: %d & this is integer: %i\n", 012, 012);
+	res_ft = ft_printf("ft: this is unsigned decimal: %u\n\n", -12);
+	res_og = printf("og: this is unsigned decimal: %u\n", -12);
 	return (0);
 }

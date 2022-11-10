@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   utils.c                                            :+:    :+:            */
+/*   ft_utils.c                                         :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/31 13:42:00 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 11:02:49 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/10 13:24:59 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -24,17 +24,50 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_putstr(char *s)
+int	ft_putstr(char *s)
 {
 	write(1, s, ft_strlen(s));
+	return (ft_strlen(s));
 }
 
-void	ft_putchar(char c)
+int	ft_putchar(char c)
 {
 	write(1, &c, 1);
+	return (1);
 }
 
-void	ft_putnbr(int n)
+// int	ft_putuns(unsigned int n)
+// {
+// 	char	c;
+
+// 	if (n < 10)
+// 	{
+// 		c = '0' + n;
+// 		ft_putchar(c);
+// 	}
+// 	else
+// 	{
+// 		ft_putuns(n / 10);
+// 		ft_putuns(n % 10);
+// 	}
+// }
+
+int	ft_intlen(int n)
+{
+	size_t	i;
+
+	i = 0;
+	if ((n == 0) || (n < 0))
+		i = 1;
+	while (n)
+	{
+		i++;
+		n = n / 10;
+	}
+	return (i);
+}
+
+int	ft_putnbr(int n)
 {
 	char	c;
 
@@ -55,7 +88,7 @@ void	ft_putnbr(int n)
 	else
 	{
 		ft_putnbr(n / 10);
-		c = '0' + (n % 10);
-		ft_putchar(c);
+		ft_putnbr(n % 10);
 	}
+	return (ft_intlen(n));
 }
