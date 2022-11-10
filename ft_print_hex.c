@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:36:12 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/10 15:32:04 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ int	ft_print_hex(unsigned long num, char x, int res)
 			c = '7' + num;
 		else
 			c = 'W' + num;
-		res = ft_putchar(c) + res;
+		ft_putchar(c);
+		res++;
 	}
 	else
 	{
-		ft_print_hex(num / 16, x, res);
-		ft_print_hex(num % 16, x, res);
+		res = ft_print_hex(num / 16, x, res);
+		res = ft_print_hex(num % 16, x, res);
 	}
 	return (res);
 }
@@ -50,11 +51,13 @@ int	ft_print_hex(unsigned long num, char x, int res)
 // int	main(void)
 // {
 // 	int	i;
+// 	int	res;
 
 // 	i = 0;
+// 	res = 0;
 // 	while (i < 65546)
 // 	{
-// 		ft_print_hex(i, 'x');
+// 		ft_print_hex(i, 'x', res);
 // 		printf(" <- hex\n");
 // 		printf("%i <- int\n\n", i);
 // 		i = i + 321;

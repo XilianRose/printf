@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 13:44:45 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/10 15:21:45 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,20 +111,31 @@ int	main(void)
 	c = '5';
 	ptr = NULL;
 	res_ft = ft_printf("ft: this should print %%\n");
-	res_og = printf("og: this should print %%\n\n");
+	res_og = printf("og: this should print %%\n");
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	res_ft = ft_printf("ft: this is a string: %s\n", "abc");
-	res_og = printf("og: this is a string: %s\n\n", "abc");
+	res_og = printf("og: this is a string: %s\n", "abc");
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	res_ft = ft_printf("ft: this is char 1: %c & this is char 2: %c\n", 'c', c);
-	res_og = printf("og: this is char 1: %c & this is char 2: %c\n\n", 'c', c);
+	res_og = printf("og: this is char 1: %c & this is char 2: %c\n", 'c', c);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	res_ft = ft_printf("ft: this is hex: %x\n", 635635);
-	res_og = printf("og: this is hex: %x\n\n", 635635);
+	res_og = printf("og: this is hex: %x\n", 635635);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	res_ft = ft_printf("ft: this is HEX: %X\n", 635635);
-	res_og = printf("og: this is HEX: %X\n\n", 635635);
+	res_og = printf("og: this is HEX: %X\n", 635635);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	res_ft = ft_printf("ft: this is void ptr: %p\n", &c);
-	res_og = printf("og: this is void ptr: %p\n\n", &c);
-	res_ft = ft_printf("ft: this is decimal: %d & this is integer: %i\n\n", 012, 012);
-	res_og = printf("og: this is decimal: %d & this is integer: %i\n", 012, 012);
-	res_ft = ft_printf("ft: this is unsigned decimal: %u\n\n", -12);
+	res_og = printf("og: this is void ptr: %p\n", &c);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
+	res_ft = ft_printf("ft: this is decimal: %d\n", 012);
+	res_og = printf("og: this is decimal: %d\n", 012);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
+	res_ft = ft_printf("ft:this is integer: %i\n", 012);
+	res_og = printf("og:this is integer: %i\n", 012);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
+	res_ft = ft_printf("ft: this is unsigned decimal: %u\n", -12);
 	res_og = printf("og: this is unsigned decimal: %u\n", -12);
+	printf("ft returns: %i\nog returns: %i\n\n", res_ft, res_og);
 	return (0);
 }
