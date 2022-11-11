@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/11 11:03:01 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/11 11:19:13 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,21 +53,23 @@ int	ft_print_nbr(int n)
 	return (ft_intlen(n));
 }
 
-// int	ft_putuns(unsigned int n)
-// {
-// 	char	c;
+int	ft_print_uns(unsigned int n, int res)
+{
+	char	c;
 
-// 	if (n < 10)
-// 	{
-// 		c = '0' + n;
-// 		ft_putchar(c);
-// 	}
-// 	else
-// 	{
-// 		ft_putuns(n / 10);
-// 		ft_putuns(n % 10);
-// 	}
-// }
+	if (n < 10)
+	{
+		c = '0' + n;
+		ft_print_char(c);
+		res++;
+	}
+	else
+	{
+		res = ft_print_uns(n / 10, res);
+		res = ft_print_uns(n % 10, res);
+	}
+	return (res);
+}
 
 // This is the function that converts decimal numbers to hex.
 
