@@ -1,17 +1,73 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_print_hex.c                                     :+:    :+:            */
+/*   ft_print_csnx.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/10 15:32:04 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/11 11:03:01 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 // #include <stdio.h>
+
+int	ft_print_str(char *s)
+{
+	if (s == NULL)
+		return (ft_print_str("(null)"));
+	write(1, s, ft_strlen(s));
+	return (ft_strlen(s));
+}
+
+int	ft_print_char(char c)
+{
+	write(1, &c, 1);
+	return (1);
+}
+
+int	ft_print_nbr(int n)
+{
+	char	c;
+
+	if (n == -2147483648)
+	{
+		ft_print_str("-2147483648");
+	}
+	else if (n < 0)
+	{
+		ft_print_char('-');
+		ft_print_nbr(-n);
+	}
+	else if (n < 10)
+	{
+		c = '0' + n;
+		ft_print_char(c);
+	}
+	else
+	{
+		ft_print_nbr(n / 10);
+		ft_print_nbr(n % 10);
+	}
+	return (ft_intlen(n));
+}
+
+// int	ft_putuns(unsigned int n)
+// {
+// 	char	c;
+
+// 	if (n < 10)
+// 	{
+// 		c = '0' + n;
+// 		ft_putchar(c);
+// 	}
+// 	else
+// 	{
+// 		ft_putuns(n / 10);
+// 		ft_putuns(n % 10);
+// 	}
+// }
 
 // This is the function that converts decimal numbers to hex.
 
@@ -35,7 +91,7 @@ int	ft_print_hex(unsigned long num, char x, int res)
 			c = '7' + num;
 		else
 			c = 'W' + num;
-		ft_putchar(c);
+		ft_print_char(c);
 		res++;
 	}
 	else
@@ -46,7 +102,7 @@ int	ft_print_hex(unsigned long num, char x, int res)
 	return (res);
 }
 
-// This is what i used to check if the conversion went right.
+// This is what i used to check if the conversion to hex went right.
 
 // int	main(void)
 // {

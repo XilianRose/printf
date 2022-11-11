@@ -6,13 +6,13 @@
 #    By: mstegema <mstegema@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/28 11:28:55 by mstegema      #+#    #+#                  #
-#    Updated: 2022/11/10 12:45:17 by mstegema      ########   odam.nl          #
+#    Updated: 2022/11/11 10:52:35 by mstegema      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 SRCS = ft_printf.c \
-	ft_print_hex.c \
+	ft_print_csnx.c \
 	ft_utils.c
 OBJS = $(SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror
