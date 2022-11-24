@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/11/02 14:50:18 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/11 11:19:13 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/24 12:38:26 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,27 @@
 
 int	ft_print_str(char *s)
 {
+	int	i;
+	int	len;
+
+	len = ft_strlen(s);
 	if (s == NULL)
 		return (ft_print_str("(null)"));
-	write(1, s, ft_strlen(s));
-	return (ft_strlen(s));
+	i = write(1, s, len);
+	if (i != len)
+		return (-1);
+	return (i);
 }
 
 int	ft_print_char(char c)
 {
-	write(1, &c, 1);
-	return (1);
+	int	i;
+
+	i = write(1, &c, 1);
+	if (i > 0)
+		return (i);
+	else
+		return (-1);
 }
 
 int	ft_print_nbr(int n)

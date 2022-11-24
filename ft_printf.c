@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/11 12:48:39 by mstegema      ########   odam.nl         */
+/*   Updated: 2022/11/24 12:34:16 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,19 +56,22 @@ static int	ft_print_ph(const char *ph, int i, va_list ap, int res)
 
 static int	ft_print_cs(const char *c, va_list ap, int res, int i)
 {
+	int	write_return;
+
+	write_return = 0;
 	while (c[i])
 	{
 		if (c[i] != '%')
 		{
-			write(1, c + i, 1);
+			write_return = write(1, c + i, 1);
 			i++;
-			res++;
+			res = res + write_return;
 		}
 		else if (c[i] == '%' && c[i + 1] == '%')
 		{
-			write(1, "%", 1);
+			write_return = write(1, "%", 1);
 			i = i + 2;
-			res++;
+			res = res + write_return;
 		}
 		else if (c[i] == '%' && c[i + 1] == '\0')
 			break ;
