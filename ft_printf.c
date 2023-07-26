@@ -6,7 +6,7 @@
 /*   By: mstegema <mstegema@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/28 11:33:29 by mstegema      #+#    #+#                 */
-/*   Updated: 2022/11/24 12:34:16 by mstegema      ########   odam.nl         */
+/*   Updated: 2023/07/26 13:14:30 by mstegema      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ static int	ft_print_cs(const char *c, va_list ap, int res, int i)
 	{
 		if (c[i] != '%')
 		{
-			write_return = write(1, c + i, 1);
-			i++;
+			write_return = write(1, c + i++, 1);
 			res = res + write_return;
 		}
 		else if (c[i] == '%' && c[i + 1] == '%')
@@ -107,9 +106,9 @@ int	ft_printf(const char *c, ...)
 // int	main(void)
 // {
 // 	int		res_ft;
-	// int		res_og;
-	// char	c;
-	// void	*ptr;
+// 	int		res_og;
+// 	char	c;
+// 	void	*ptr;
 
 // c = '5';
 // ptr = NULL;
